@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">News portal</string>
+    <string name="news_li_title_placeholder">ABC News</string>
+    <string name="news_li_description_placeholder">Your trusted source for breaking news, analysis, exclusive
+        interviews, headlines, and videos at ABCNews.com.
+    </string>
+    <string name="sources_loading">Sources loading</string>
+    <string name="appbar_sources">Sources</string>
+</resources>

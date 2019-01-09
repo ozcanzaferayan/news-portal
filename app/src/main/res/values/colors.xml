@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimaryLight">@color/md_blue_700</color>
+    <color name="colorPrimary">@color/md_blue_800</color>
+    <color name="colorPrimaryDark">@color/md_blue_900</color>
+    <!--    <color name="colorAccent">@color/md_pink_600</color>-->
+    <color name="colorAccent">@color/colorPrimary</color>
+    <color name="colorAccentDark">@color/colorPrimaryDark</color>
+    <color name="newsTitle">@color/colorPrimary</color>
+    <color name="newsDescription">@color/md_black_1000</color>
+</resources>
