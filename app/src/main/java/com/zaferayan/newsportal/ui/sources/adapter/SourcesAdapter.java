@@ -33,15 +33,7 @@ public class SourcesAdapter extends RecyclerView.Adapter<SourcesAdapter.SourcesV
         final Source source = sources.get(position);
         sourcesViewHolder.txtName.setText(source.getName());
         sourcesViewHolder.txtDescription.setText(source.getDescription());
-        sourcesViewHolder.layout.setOnClickListener(new SourceClickListener(source.getId()));
-/*        sourcesViewHolder.layout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(context, BranchDetailActivity.class);
-                intent.putExtra("SOURCE_ID", source.getId());
-                context.startActivity(intent);
-            }
-        });*/
+        sourcesViewHolder.layout.setOnClickListener(new SourceClickListener(source));
     }
 
     @Override

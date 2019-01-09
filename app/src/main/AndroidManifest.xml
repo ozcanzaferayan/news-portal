@@ -28,7 +28,8 @@
                       android:host="www.zaferayan.com"/>
             </intent-filter>
         </activity>
-        <activity android:name=".ui.topHeadlines.TopHeadlinesActivity">
+        <activity android:name=".ui.topHeadlines.view.TopHeadlinesActivity"
+                  android:parentActivityName=".ui.sources.view.SourcesActivity">
         </activity>
     </application>
 

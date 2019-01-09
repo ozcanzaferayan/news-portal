@@ -6,6 +6,7 @@
     <!--    <color name="colorAccent">@color/md_pink_600</color>-->
     <color name="colorAccent">@color/colorPrimary</color>
     <color name="colorAccentDark">@color/colorPrimaryDark</color>
-    <color name="newsTitle">@color/colorPrimary</color>
-    <color name="newsDescription">@color/md_black_1000</color>
+    <color name="sourcesTitle">@color/colorPrimary</color>
+    <color name="sourcesDescription">@color/md_black_1000</color>
+    <color name="headlineTitle">#000000</color>
 </resources>

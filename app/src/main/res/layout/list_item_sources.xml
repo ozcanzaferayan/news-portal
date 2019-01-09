@@ -14,16 +14,16 @@
             android:id="@+id/sourcesName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/newsTitle"
+            android:textColor="@color/sourcesTitle"
             android:textSize="15sp"
-            android:text="@string/news_li_title_placeholder"
+            android:text="@string/sources_li_title_placeholder"
     />
     <TextView
             android:id="@+id/sourcesDescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/newsDescription"
-            android:text="@string/news_li_description_placeholder"
+            android:textColor="@color/sourcesDescription"
+            android:text="@string/sources_li_description_placeholder"
             android:layout_marginTop="5dp"/>
 
 </LinearLayout>

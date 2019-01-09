@@ -3,6 +3,11 @@ package com.zaferayan.newsportal.ui.topHeadlines.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 @SuppressWarnings("unused")
 public class Article {
 
@@ -21,7 +26,7 @@ public class Article {
     @SerializedName("url")
     private String mUrl;
     @SerializedName("urlToImage")
-    private Object mUrlToImage;
+    private String mUrlToImage;
 
     public String getAuthor() {
         return mAuthor;
@@ -48,6 +53,15 @@ public class Article {
     }
 
     public String getPublishedAt() {
+        DateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+        SimpleDateFormat sdfTime = new SimpleDateFormat("HH:mm:ss");
+        try {
+            Date date = format.parse(mPublishedAt);
+            String strTime = sdfTime.format(date);
+            return strTime;
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         return mPublishedAt;
     }
 
@@ -79,11 +93,11 @@ public class Article {
         mUrl = url;
     }
 
-    public Object getUrlToImage() {
+    public String getUrlToImage() {
         return mUrlToImage;
     }
 
-    public void setUrlToImage(Object urlToImage) {
+    public void setUrlToImage(String urlToImage) {
         mUrlToImage = urlToImage;
     }
 
