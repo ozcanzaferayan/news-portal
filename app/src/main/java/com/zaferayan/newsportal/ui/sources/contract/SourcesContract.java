@@ -13,8 +13,6 @@ public interface SourcesContract {
 
         void loadEmptyList();
 
-        void clearList();
-
         void showListLoading();
 
         void hideListLoading();
@@ -29,5 +27,9 @@ public interface SourcesContract {
         abstract public void loadListWithProgressDialog();
 
         abstract public void loadListFromSwipeRefresh();
+
+        public abstract void loadEmptyList();
+
+        public abstract void addHomeScreenShortcut();
     }
 }

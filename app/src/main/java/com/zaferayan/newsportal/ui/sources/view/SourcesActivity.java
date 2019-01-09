@@ -11,7 +11,6 @@ import android.support.v7.widget.RecyclerView;
 import android.widget.Toast;
 import com.zaferayan.newsportal.R;
 import com.zaferayan.newsportal.di.DependencyInjectorImpl;
-import com.zaferayan.newsportal.helper.ShortcutHelper;
 import com.zaferayan.newsportal.ui.sources.adapter.SourcesAdapter;
 import com.zaferayan.newsportal.ui.sources.contract.SourcesContract;
 import com.zaferayan.newsportal.ui.sources.model.Source;
@@ -32,14 +31,14 @@ public class SourcesActivity extends AppCompatActivity implements SourcesContrac
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sources);
-        ShortcutHelper.addShortcut(this, this.getClass());
         recyclerView = findViewById(R.id.listSources);
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(layoutManager);
         swipeRefreshSources = findViewById(R.id.swipeRefreshSources);
         setPresenter(new SourcesPresenter(this, new DependencyInjectorImpl(this)));
-        loadEmptyList();
+        presenter.addHomeScreenShortcut();
+        presenter.loadEmptyList();
         presenter.loadListWithProgressDialog();
         swipeRefreshSources.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -59,11 +58,6 @@ public class SourcesActivity extends AppCompatActivity implements SourcesContrac
     public void loadEmptyList() {
         adapter = new SourcesAdapter(new ArrayList<Source>());
         recyclerView.setAdapter(adapter);
-    }
-
-    @Override
-    public void clearList() {
-        if (adapter != null) adapter.clear();
     }
 
     @Override
@@ -93,6 +87,7 @@ public class SourcesActivity extends AppCompatActivity implements SourcesContrac
     public Context getContext() {
         return this;
     }
+
 
     @Override
     protected void onDestroy() {
