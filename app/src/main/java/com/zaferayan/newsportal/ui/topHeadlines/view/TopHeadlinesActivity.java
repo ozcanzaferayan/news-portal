@@ -3,6 +3,7 @@ package com.zaferayan.newsportal.ui.topHeadlines.view;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -30,15 +31,26 @@ public class TopHeadlinesActivity extends AppCompatActivity implements TopHeadli
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_top_headlines);
-        final String sourceId = getIntent().getExtras().getString(EXTRA_SOURCE_ID, EXTRA_SOURCE_ID_DEFAULT);
-        final String sourceName = getIntent().getExtras().getString(EXTRA_SOURCE_NAME, EXTRA_SOURCE_NAME_DEFAULT);
-        getSupportActionBar().setTitle(sourceName);
+        Bundle bundle = getIntent().getExtras();
+        ActionBar actionBar = getSupportActionBar();
+        final String sourceId;
+        final String sourceName;
+        if (bundle == null) {
+            sourceId = EXTRA_SOURCE_ID_DEFAULT;
+            sourceName = EXTRA_SOURCE_NAME_DEFAULT;
+        } else {
+            sourceId = bundle.getString(EXTRA_SOURCE_ID, EXTRA_SOURCE_ID_DEFAULT);
+            sourceName = bundle.getString(EXTRA_SOURCE_NAME, EXTRA_SOURCE_NAME_DEFAULT);
+        }
+        if (actionBar != null) {
+            actionBar.setTitle(sourceName);
+        }
         recyclerView = findViewById(R.id.listTopHeadlines);
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(layoutManager);
         swipeRefreshSources = findViewById(R.id.swipeRefreshTopHeadlines);
-        setPresenter(new TopHeadlinesPresenter(this, new DependencyInjectorImpl(this)));
+        setPresenter(new TopHeadlinesPresenter(this, new DependencyInjectorImpl(this.getApplication())));
         presenter.loadEmptyList();
         presenter.loadListWithProgressDialog(sourceId);
         swipeRefreshSources.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {

@@ -22,7 +22,7 @@ public class TopHeadlinesPresenter extends TopHeadlinesContract.Presenter {
 
     @Override
     protected void loadList(String sourceId) {
-        final Call<TopHeadlinesResponse> responseCall = dependencyInjector.getNewsRepository().getTopHeadlines(sourceId);
+        final Call<TopHeadlinesResponse> responseCall = dependencyInjector.getNewsService().getTopHeadlines(sourceId);
         responseCall.enqueue(new Callback<TopHeadlinesResponse>() {
             @Override
             public void onResponse(@NonNull Call<TopHeadlinesResponse> call, @NonNull Response<TopHeadlinesResponse> response) {

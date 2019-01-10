@@ -24,7 +24,7 @@ public class SourcesPresenter extends SourcesContract.Presenter {
 
     @Override
     protected void loadList() {
-        final Call<SourcesResponse> sourcesResponseCall = dependencyInjector.getNewsRepository().getSources();
+        final Call<SourcesResponse> sourcesResponseCall = dependencyInjector.getNewsService().getSources();
         sourcesResponseCall.enqueue(new Callback<SourcesResponse>() {
             @Override
             public void onResponse(@NonNull Call<SourcesResponse> call, @NonNull Response<SourcesResponse> response) {
