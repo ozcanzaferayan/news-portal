@@ -16,5 +16,9 @@ public interface ArticleDao {
     void delete(Article article);
 
     @Query("SELECT * FROM Article")
-    LiveData<List<Article>> getAllArticles();
+    LiveData<List<Article>> getAllArticlesAsync();
+
+
+    @Query("SELECT * FROM Article")
+    List<Article> getAllArticles();
 }

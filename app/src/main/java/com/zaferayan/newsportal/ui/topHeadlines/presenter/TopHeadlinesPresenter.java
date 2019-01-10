@@ -1,6 +1,8 @@
 package com.zaferayan.newsportal.ui.topHeadlines.presenter;
 
 import android.support.annotation.NonNull;
+import android.view.View;
+import com.zaferayan.newsportal.data.repository.ArticleRepository;
 import com.zaferayan.newsportal.di.DependencyInjector;
 import com.zaferayan.newsportal.ui.topHeadlines.contract.TopHeadlinesContract;
 import com.zaferayan.newsportal.ui.topHeadlines.model.Article;
@@ -13,16 +15,21 @@ import java.util.List;
 
 public class TopHeadlinesPresenter extends TopHeadlinesContract.Presenter {
     private final DependencyInjector dependencyInjector;
+    private final TopHeadlinesPresenter self;
+    private final String sourceId;
     private TopHeadlinesContract.View view;
 
-    public TopHeadlinesPresenter(TopHeadlinesContract.View view, DependencyInjector dependencyInjector) {
+    public TopHeadlinesPresenter(TopHeadlinesContract.View view, DependencyInjector dependencyInjector, String sourceId) {
         this.view = view;
         this.dependencyInjector = dependencyInjector;
+        this.self = this;
+        this.sourceId = sourceId;
     }
 
     @Override
-    protected void loadList(String sourceId) {
+    protected void loadList() {
         final Call<TopHeadlinesResponse> responseCall = dependencyInjector.getNewsService().getTopHeadlines(sourceId);
+        final List<Article> storedArticles = dependencyInjector.getArticleRepository().getmAllArticlesSync();
         responseCall.enqueue(new Callback<TopHeadlinesResponse>() {
             @Override
             public void onResponse(@NonNull Call<TopHeadlinesResponse> call, @NonNull Response<TopHeadlinesResponse> response) {
@@ -36,8 +43,8 @@ public class TopHeadlinesPresenter extends TopHeadlinesContract.Presenter {
                 }
                 TopHeadlinesResponse sourcesResponse = response.body();
                 if (sourcesResponse == null) return;
-                List<Article> sources = sourcesResponse.getArticles();
-                view.loadList(sources);
+                List<Article> articles = sourcesResponse.getArticles();
+                view.loadList(articles, storedArticles, self);
             }
 
             @Override
@@ -49,19 +56,37 @@ public class TopHeadlinesPresenter extends TopHeadlinesContract.Presenter {
     }
 
     @Override
-    public void loadListWithProgressDialog(String sourceId) {
+    public void loadListWithProgressDialog() {
         view.showListLoading();
-        loadList(sourceId);
+        loadList();
     }
 
     @Override
-    public void loadListFromSwipeRefresh(String sourceId) {
-        loadList(sourceId);
+    public void loadListFromSwipeRefresh() {
+        loadList();
     }
 
     @Override
     public void loadEmptyList() {
         view.loadEmptyList();
+    }
+
+    @Override
+    public View.OnClickListener addOrDeleteArticle(final Article article, final boolean isStored) {
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ArticleRepository repo = dependencyInjector.getArticleRepository();
+                if (isStored) repo.delete(article);
+                else repo.insert(article);
+                loadList();
+            }
+        };
+    }
+
+    @Override
+    public void navigateToWebView(Article article) {
+        view.navigateToWebView(article);
     }
 
 

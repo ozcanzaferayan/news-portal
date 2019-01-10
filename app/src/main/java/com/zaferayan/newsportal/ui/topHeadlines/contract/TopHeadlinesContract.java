@@ -9,7 +9,7 @@ import java.util.List;
 public interface TopHeadlinesContract {
     interface View extends BaseView<TopHeadlinesContract.Presenter> {
 
-        void loadList(List<Article> articles);
+        void loadList(List<Article> articles, List<Article> storedArticles, TopHeadlinesContract.Presenter presenter);
 
         void loadEmptyList();
 
@@ -19,15 +19,20 @@ public interface TopHeadlinesContract {
 
         void showListError(Exception e);
 
+        void navigateToWebView(Article article);
     }
 
     abstract class Presenter implements BasePresenter {
-        abstract protected void loadList(String sourceId);
+        abstract protected void loadList();
 
-        abstract public void loadListWithProgressDialog(String sourceId);
+        abstract public void loadListWithProgressDialog();
 
-        abstract public void loadListFromSwipeRefresh(String sourceId);
+        abstract public void loadListFromSwipeRefresh();
 
         public abstract void loadEmptyList();
+
+        public abstract android.view.View.OnClickListener addOrDeleteArticle(Article article, boolean isStored);
+
+        public abstract void navigateToWebView(Article article);
     }
 }

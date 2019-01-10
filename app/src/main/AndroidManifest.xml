@@ -9,20 +9,21 @@
 
     <application
             android:allowBackup="true"
+            android:fullBackupContent="true"
             android:icon="@mipmap/ic_launcher"
             android:label="@string/app_name"
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
-            android:theme="@style/AppTheme"
-            android:fullBackupContent="true">
+            android:theme="@style/AppTheme">
         <activity
                 android:name=".ui.sources.view.SourcesActivity"
-                android:label="@string/appbar_sources">
-            <!--            <intent-filter>
-                            <action android:name="android.intent.action.MAIN"/>
+                android:label="@string/appbar_sources"
+                android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
 
-                            <category android:name="android.intent.category.LAUNCHER"/>
-                        </intent-filter>-->
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.VIEW"/>
 
@@ -36,14 +37,17 @@
         </activity>
         <activity
                 android:name=".ui.topHeadlines.view.TopHeadlinesActivity"
-                android:parentActivityName=".ui.sources.view.SourcesActivity">
+                android:parentActivityName=".ui.sources.view.SourcesActivity"
+                android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".ui.savedArticles.SavedArticlesActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
+        <activity
+                android:name=".ui.savedArticles.SavedArticlesActivity"
+                android:label="@string/appbar_saved_articles"
+                android:parentActivityName=".ui.topHeadlines.view.TopHeadlinesActivity"
+                android:screenOrientation="portrait">
+        </activity>
+        <activity android:name=".ui.webview.WebViewActivity"
+                  android:screenOrientation="portrait">
         </activity>
     </application>
 

@@ -11,4 +11,7 @@
     <string name="headline_li_publishedAt_placeholder">15:35:00</string>
     <string name="headline_li_remove_from_reading_list">Remove from reading list</string>
     <string name="headline_li_add_to_reading_list">Add to reading list</string>
+    <string name="menu_item_saved_articles">Saved Articles</string>
+    <string name="appbar_saved_articles">Saved Articles</string>
+    <string name="webView_toast_url_not_found">URL not found</string>
 </resources>

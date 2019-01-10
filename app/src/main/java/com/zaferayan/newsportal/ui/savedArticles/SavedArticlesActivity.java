@@ -8,8 +8,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import com.zaferayan.newsportal.R;
+import com.zaferayan.newsportal.ui.savedArticles.viewModel.ArticleViewModel;
 import com.zaferayan.newsportal.ui.topHeadlines.model.Article;
-import com.zaferayan.newsportal.ui.topHeadlines.viewModel.ArticleViewModel;
 
 import java.util.List;
 

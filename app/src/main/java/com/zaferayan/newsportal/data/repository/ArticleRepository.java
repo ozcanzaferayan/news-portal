@@ -13,15 +13,21 @@ public class ArticleRepository {
 
     private ArticleDao mArticleDao;
     private LiveData<List<Article>> mAllArticles;
+    private List<Article> mAllArticlesSync;
 
     public ArticleRepository(Application application) {
         ArticleRoomDatabase db = ArticleRoomDatabase.getDatabase(application);
         mArticleDao = db.articleDao();
-        mAllArticles = mArticleDao.getAllArticles();
+        mAllArticles = mArticleDao.getAllArticlesAsync();
+        mAllArticlesSync = mArticleDao.getAllArticles();
     }
 
-    public LiveData<List<Article>> getAllArticles() {
+    public LiveData<List<Article>> getAllArticlesAsync() {
         return mAllArticles;
+    }
+
+    public List<Article> getmAllArticlesSync() {
+        return mAllArticlesSync;
     }
 
 

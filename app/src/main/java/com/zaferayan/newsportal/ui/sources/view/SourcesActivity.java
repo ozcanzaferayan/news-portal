@@ -36,7 +36,7 @@ public class SourcesActivity extends AppCompatActivity implements SourcesContrac
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(layoutManager);
         swipeRefreshSources = findViewById(R.id.swipeRefreshSources);
-        setPresenter(new SourcesPresenter(this, new DependencyInjectorImpl(this)));
+        setPresenter(new SourcesPresenter(this, new DependencyInjectorImpl(this.getApplication())));
         presenter.addHomeScreenShortcut();
         presenter.loadEmptyList();
         presenter.loadListWithProgressDialog();

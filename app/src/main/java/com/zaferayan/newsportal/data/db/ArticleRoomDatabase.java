@@ -11,7 +11,7 @@ import com.zaferayan.newsportal.data.dao.ArticleDao;
 import com.zaferayan.newsportal.ui.topHeadlines.model.Article;
 import com.zaferayan.newsportal.ui.topHeadlines.model.Source;
 
-@Database(entities = {Article.class}, version = 1)
+@Database(entities = {Article.class}, version = 1, exportSchema = false)
 public abstract class ArticleRoomDatabase extends RoomDatabase {
     private static volatile ArticleRoomDatabase INSTANCE;
     private static RoomDatabase.Callback sRoomDBCallback = new RoomDatabase.Callback() {
@@ -29,6 +29,7 @@ public abstract class ArticleRoomDatabase extends RoomDatabase {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
                             ArticleRoomDatabase.class, "article_database")
                             .addCallback(sRoomDBCallback)
+                            .allowMainThreadQueries()
                             .build();
                 }
             }
@@ -59,11 +60,13 @@ public abstract class ArticleRoomDatabase extends RoomDatabase {
             ));
             mDao.insert(new Article(
                     source,
-                    "Future unclear as Sudan protesters and president at loggerheads",
-                    "http://www.aljazeera.com/news/2019/01/future-unclear-sudan-protesters-president-loggerheads-190108135021310.html",
-                    "https://www.aljazeera.com/mritems/Images/2019/1/6/de7dfb3f556c45f3857a9f62238bc0fa_18.jpg",
-                    "2019-01-08T21:00:00Z"
+                    "Is the US facing an immigration crisis?",
+                    "http://www.aljazeera.com/programmes/insidestory/2019/01/facing-immigration-crisis-190109180923590.html",
+                    null,
+                    "2019-01-09T21:22:05.450547Z"
             ));
+            //http://www.aljazeera.com/programmes/insidestory/2019/01/facing-immigration-crisis-190109180923590.html
+            //http://www.aljazeera.com/programmes/insidestory/2019/01/facing-immigration-crisis-190109180923590.html
             return null;
         }
     }

@@ -1,4 +1,4 @@
-package com.zaferayan.newsportal.ui.topHeadlines.viewModel;
+package com.zaferayan.newsportal.ui.savedArticles.viewModel;
 
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
@@ -17,7 +17,7 @@ public class ArticleViewModel extends AndroidViewModel {
     public ArticleViewModel(Application application) {
         super(application);
         mRepository = new ArticleRepository(application);
-        mAllArticles = mRepository.getAllArticles();
+        mAllArticles = mRepository.getAllArticlesAsync();
     }
 
     public LiveData<List<Article>> getAllArticles() {

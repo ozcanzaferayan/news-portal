@@ -8,10 +8,11 @@ import android.arch.persistence.room.TypeConverters;
 import android.support.annotation.NonNull;
 import com.google.gson.annotations.SerializedName;
 
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 @SuppressWarnings("unused")
@@ -75,13 +76,14 @@ public class Article {
     }
 
     public String getPublishedAt() {
-        DateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.US);
+        List<String> formatStrings = Arrays.asList("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", "yyyy-MM-dd'T'HH:mm:ss'Z'");
         SimpleDateFormat sdfTime = new SimpleDateFormat("HH:mm:ss", Locale.US);
-        try {
-            Date date = format.parse(mPublishedAt);
-            return sdfTime.format(date);
-        } catch (ParseException e) {
-            e.printStackTrace();
+        for (String formatString : formatStrings) {
+            try {
+                Date date = new SimpleDateFormat(formatString, Locale.US).parse(mPublishedAt);
+                return sdfTime.format(date);
+            } catch (ParseException ignored) {
+            }
         }
         return mPublishedAt;
     }

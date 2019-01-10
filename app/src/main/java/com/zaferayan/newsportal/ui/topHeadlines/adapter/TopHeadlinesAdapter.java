@@ -13,17 +13,21 @@ import com.squareup.picasso.Callback;
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 import com.zaferayan.newsportal.R;
-import com.zaferayan.newsportal.ui.topHeadlines.listener.ArticleClickListener;
+import com.zaferayan.newsportal.ui.topHeadlines.contract.TopHeadlinesContract;
 import com.zaferayan.newsportal.ui.topHeadlines.model.Article;
 
 import java.util.List;
 
 public class TopHeadlinesAdapter extends RecyclerView.Adapter<TopHeadlinesAdapter.SourcesViewHolder> {
 
+    private final List<Article> storedArticles;
+    private final TopHeadlinesContract.Presenter presenter;
     private List<Article> articles;
 
-    public TopHeadlinesAdapter(List<Article> articles) {
+    public TopHeadlinesAdapter(List<Article> articles, List<Article> storedArticles, TopHeadlinesContract.Presenter presenter) {
         this.articles = articles;
+        this.storedArticles = storedArticles;
+        this.presenter = presenter;
     }
 
     @NonNull
@@ -38,12 +42,33 @@ public class TopHeadlinesAdapter extends RecyclerView.Adapter<TopHeadlinesAdapte
     public void onBindViewHolder(@NonNull final SourcesViewHolder sourcesViewHolder, int position) {
         final Article article = articles.get(position);
         final Context context = sourcesViewHolder.layout.getContext();
-        final String url = article.getUrlToImage();
-        loadImage(sourcesViewHolder, context, url);
+        final String imageUrl = article.getUrlToImage();
+        final boolean isStored = checkIfStoredArticles(article);
+        loadImage(sourcesViewHolder, context, imageUrl);
         sourcesViewHolder.txtTitle.setText(article.getTitle());
-        // sourcesViewHolder.txtAction.setText(article.getTitle()); // TODO: Check from SQLITE
+        sourcesViewHolder.txtAction.setText(getActionText(context, isStored));
         sourcesViewHolder.txtPublishedAt.setText(article.getPublishedAt());
-        sourcesViewHolder.layout.setOnClickListener(new ArticleClickListener(article.getUrl()));
+        sourcesViewHolder.layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                presenter.navigateToWebView(article);
+            }
+        });
+        sourcesViewHolder.txtAction.setOnClickListener(presenter.addOrDeleteArticle(article, isStored));
+    }
+
+    private String getActionText(Context context, boolean isStored) {
+        int resId = isStored ? R.string.headline_li_remove_from_reading_list : R.string.headline_li_add_to_reading_list;
+        return context.getString(resId);
+    }
+
+    private boolean checkIfStoredArticles(Article article) {
+        for (Article storedArticle : storedArticles) {
+            if (article.getUrl().equals(storedArticle.getUrl())) {
+                return true;
+            }
+        }
+        return false;
     }
 
 
@@ -100,8 +125,8 @@ public class TopHeadlinesAdapter extends RecyclerView.Adapter<TopHeadlinesAdapte
                 });
     }
 
-    public static class SourcesViewHolder extends RecyclerView.ViewHolder {
-        public View layout;
+    static class SourcesViewHolder extends RecyclerView.ViewHolder {
+        View layout;
         ImageView image;
         TextView txtTitle;
         TextView txtAction;
