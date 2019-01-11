@@ -15,4 +15,5 @@
     <string name="appbar_saved_articles">Saved</string>
     <string name="webView_toast_url_not_found">URL not found</string>
     <string name="articles_loading">Getting headlines…</string>
+    <string name="webView_toast_bundle_not_found">Bundle not found</string>
 </resources>

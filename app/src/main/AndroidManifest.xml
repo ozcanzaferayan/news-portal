@@ -16,7 +16,7 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <service android:name=".backgroundService.UpdaterService"/>
+        <service android:name=".service.UpdaterService"/>
 
         <activity
                 android:name=".ui.sources.view.SourcesActivity"
@@ -39,11 +39,6 @@
             </intent-filter>
         </activity>
         <activity
-                android:name=".ui.topHeadlines.view.TopHeadlinesActivity"
-                android:parentActivityName=".ui.sources.view.SourcesActivity"
-                android:screenOrientation="portrait">
-        </activity>
-        <activity
                 android:name=".ui.savedArticles.SavedArticlesActivity"
                 android:label="@string/appbar_saved_articles"
                 android:parentActivityName=".ui.topHeadlines.view.TopHeadlinesActivity"
@@ -53,7 +48,7 @@
                 android:name=".ui.webview.WebViewActivity"
                 android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".ui.topHeadlines2.TopHeadlinesActivity2"
+        <activity android:name=".ui.topHeadlines.view.TopHeadlinesActivity"
                   android:screenOrientation="portrait"
                   android:parentActivityName=".ui.sources.view.SourcesActivity">
         </activity>

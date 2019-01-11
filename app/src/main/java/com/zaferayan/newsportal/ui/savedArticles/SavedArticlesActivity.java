@@ -8,10 +8,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import com.zaferayan.newsportal.R;
-import com.zaferayan.newsportal.ui.savedArticles.viewModel.ArticleViewModel;
+import com.zaferayan.newsportal.ui.topHeadlines.adapter.ArticleRecyclerViewAdapter;
 import com.zaferayan.newsportal.ui.topHeadlines.model.Article;
 import com.zaferayan.newsportal.ui.topHeadlines.model.Source;
-import com.zaferayan.newsportal.ui.topHeadlines2.adapter.ArticleRecyclerViewAdapter;
+import com.zaferayan.newsportal.ui.topHeadlines.viewModel.ArticleViewModel;
 import com.zaferayan.newsportal.util.ActionBarUtil;
 import com.zaferayan.newsportal.util.BundleUtil;
 

@@ -2,10 +2,10 @@ package com.zaferayan.newsportal.ui.sources.presenter;
 
 import android.support.annotation.NonNull;
 import com.zaferayan.newsportal.di.DependencyInjector;
-import com.zaferayan.newsportal.helper.ShortcutHelper;
 import com.zaferayan.newsportal.ui.sources.contract.SourcesContract;
 import com.zaferayan.newsportal.ui.sources.model.Source;
 import com.zaferayan.newsportal.ui.sources.model.SourcesResponse;
+import com.zaferayan.newsportal.util.ShortcutUtil;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -68,7 +68,7 @@ public class SourcesPresenter extends SourcesContract.Presenter {
 
     @Override
     public void addHomeScreenShortcut() {
-        ShortcutHelper.addShortcut(view.getContext(), this.getClass());
+        ShortcutUtil.addShortcut(view.getContext(), this.getClass());
     }
 
     @Override

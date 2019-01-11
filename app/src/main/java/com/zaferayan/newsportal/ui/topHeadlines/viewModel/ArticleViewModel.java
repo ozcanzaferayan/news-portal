@@ -1,4 +1,4 @@
-package com.zaferayan.newsportal.ui.savedArticles.viewModel;
+package com.zaferayan.newsportal.ui.topHeadlines.viewModel;
 
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;

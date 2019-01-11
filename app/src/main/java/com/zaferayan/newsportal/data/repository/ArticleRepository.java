@@ -13,21 +13,15 @@ public class ArticleRepository {
 
     private ArticleDao mArticleDao;
     private LiveData<List<Article>> mAllArticles;
-    private List<Article> mAllArticlesSync;
 
     public ArticleRepository(Application application) {
         ArticleRoomDatabase db = ArticleRoomDatabase.getDatabase(application);
         mArticleDao = db.articleDao();
-        mAllArticles = mArticleDao.getAllArticlesAsync();
-        mAllArticlesSync = mArticleDao.getAllArticles();
+        mAllArticles = mArticleDao.getArticles();
     }
 
     public LiveData<List<Article>> getAllArticlesAsync() {
         return mAllArticles;
-    }
-
-    public List<Article> getmAllArticlesSync() {
-        return mAllArticlesSync;
     }
 
 
@@ -55,7 +49,7 @@ public class ArticleRepository {
     }
 
     public LiveData<List<Article>> getArticlesBySource(String sourceId) {
-        return mArticleDao.getAllArticlesBySource(sourceId);
+        return mArticleDao.getArticles(sourceId);
     }
 
     public LiveData<List<Article>> getSavedArticles(String sourceId) {

@@ -1,11 +1,11 @@
-package com.zaferayan.newsportal.helper;
+package com.zaferayan.newsportal.util;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import com.zaferayan.newsportal.R;
 
-public class ShortcutHelper {
+public class ShortcutUtil {
 
     private static final String IS_ICON_CREATED = "IS_ICON_CREATED";
     private static final String APP_PREFERENCE = "APP_PREFERENCE";
@@ -29,7 +29,7 @@ public class ShortcutHelper {
 
         addIntent
                 .setAction("com.android.launcher.action.INSTALL_SHORTCUT");
-        addIntent.putExtra("duplicate", false);  //may it's already there so don't duplicate
+        addIntent.putExtra("duplicate", false);
         context.sendBroadcast(addIntent);
     }
 }

@@ -46,17 +46,6 @@ public class SourcesAdapter extends RecyclerView.Adapter<SourcesAdapter.SourcesV
         notifyItemInserted(position);
     }
 
-    public void remove(int position) {
-        sources.remove(position);
-        notifyItemRemoved(position);
-    }
-
-    public void clear() {
-        final int size = sources.size();
-        sources.clear();
-        notifyItemRangeRemoved(0, size);
-    }
-
     public static class SourcesViewHolder extends RecyclerView.ViewHolder {
         public View layout;
         TextView txtName;

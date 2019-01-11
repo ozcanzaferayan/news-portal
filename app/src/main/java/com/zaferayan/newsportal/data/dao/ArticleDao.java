@@ -23,18 +23,13 @@ public interface ArticleDao {
     void delete(Article article);
 
     @Query("SELECT * FROM Article")
-    LiveData<List<Article>> getAllArticlesAsync();
+    LiveData<List<Article>> getArticles();
 
     @Query("SELECT * FROM Article WHERE mSource = :sourceId ORDER BY mPublishedAt DESC")
-    LiveData<List<Article>> getAllArticlesBySource(String sourceId);
-
+    LiveData<List<Article>> getArticles(String sourceId);
 
     @Query("SELECT * FROM Article WHERE mSource = :sourceId AND isSaved ORDER BY mPublishedAt DESC")
     LiveData<List<Article>> getSavedArticles(String sourceId);
-
-
-    @Query("SELECT * FROM Article")
-    List<Article> getAllArticles();
 
 
 }

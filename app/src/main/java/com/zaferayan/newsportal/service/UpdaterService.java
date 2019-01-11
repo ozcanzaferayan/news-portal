@@ -1,4 +1,4 @@
-package com.zaferayan.newsportal.backgroundService;
+package com.zaferayan.newsportal.service;
 
 import android.app.Service;
 import android.content.Intent;

@@ -1,4 +1,4 @@
-package com.zaferayan.newsportal.ui.topHeadlines2.adapter;
+package com.zaferayan.newsportal.ui.topHeadlines.adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -13,9 +13,9 @@ import com.squareup.picasso.Callback;
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 import com.zaferayan.newsportal.R;
-import com.zaferayan.newsportal.ui.savedArticles.viewModel.ArticleViewModel;
 import com.zaferayan.newsportal.ui.topHeadlines.listener.ArticleClickListener;
 import com.zaferayan.newsportal.ui.topHeadlines.model.Article;
+import com.zaferayan.newsportal.ui.topHeadlines.viewModel.ArticleViewModel;
 
 import java.util.List;
 
