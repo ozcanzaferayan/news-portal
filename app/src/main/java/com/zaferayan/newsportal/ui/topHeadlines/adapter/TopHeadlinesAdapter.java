@@ -108,7 +108,7 @@ public class TopHeadlinesAdapter extends RecyclerView.Adapter<TopHeadlinesAdapte
                     public void onError() {
                         Picasso.with(context)
                                 .load(url)
-                                .error(R.drawable.bitmap_headline)
+                                .error(R.drawable.ic_newspaper)
                                 .into(sourcesViewHolder.image, new Callback() {
                                     @Override
                                     public void onSuccess() {
@@ -118,7 +118,7 @@ public class TopHeadlinesAdapter extends RecyclerView.Adapter<TopHeadlinesAdapte
                                     @Override
                                     public void onError() {
                                         Log.e("ERROR", "Could not fetch " + url);
-                                        Picasso.with(context).load(R.drawable.bitmap_headline).into(sourcesViewHolder.image);
+                                        Picasso.with(context).load(R.drawable.ic_newspaper).into(sourcesViewHolder.image);
                                     }
                                 });
                     }

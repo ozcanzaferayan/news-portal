@@ -8,6 +8,7 @@
     <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT"/>
 
     <application
+            android:name=".app.MyApplication"
             android:allowBackup="true"
             android:fullBackupContent="true"
             android:icon="@mipmap/ic_launcher"
@@ -15,6 +16,8 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
+        <service android:name=".backgroundService.UpdaterService"/>
+
         <activity
                 android:name=".ui.sources.view.SourcesActivity"
                 android:label="@string/appbar_sources"
@@ -46,8 +49,13 @@
                 android:parentActivityName=".ui.topHeadlines.view.TopHeadlinesActivity"
                 android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".ui.webview.WebViewActivity"
-                  android:screenOrientation="portrait">
+        <activity
+                android:name=".ui.webview.WebViewActivity"
+                android:screenOrientation="portrait">
+        </activity>
+        <activity android:name=".ui.topHeadlines2.TopHeadlinesActivity2"
+                  android:screenOrientation="portrait"
+                  android:parentActivityName=".ui.sources.view.SourcesActivity">
         </activity>
     </application>
 

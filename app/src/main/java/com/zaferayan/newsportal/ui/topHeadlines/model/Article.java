@@ -2,7 +2,6 @@
 package com.zaferayan.newsportal.ui.topHeadlines.model;
 
 import android.arch.persistence.room.Entity;
-import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 import android.arch.persistence.room.TypeConverters;
 import android.support.annotation.NonNull;
@@ -28,7 +27,6 @@ public class Article {
     @SerializedName("publishedAt")
     private String mPublishedAt;
     @SerializedName("source")
-    @Ignore
     @TypeConverters(SourceConverter.class)
     private Source mSource;
     @SerializedName("title")
@@ -39,16 +37,18 @@ public class Article {
     private String mUrl = "undefined";
     @SerializedName("urlToImage")
     private String mUrlToImage;
+    private boolean isSaved;
 
     public Article() {
     }
 
-    public Article(Source mSource, String mTitle, @NonNull String mUrl, String mUrlToImage, String mPublishedAt) {
+    public Article(Source mSource, String mTitle, @NonNull String mUrl, String mUrlToImage, String mPublishedAt, boolean isSaved) {
         this.mSource = mSource;
         this.mTitle = mTitle;
         this.mUrl = mUrl;
         this.mUrlToImage = mUrlToImage;
         this.mPublishedAt = mPublishedAt;
+        this.isSaved = isSaved;
     }
 
     public String getAuthor() {
@@ -124,4 +124,11 @@ public class Article {
         mUrlToImage = urlToImage;
     }
 
+    public boolean isSaved() {
+        return isSaved;
+    }
+
+    public void setSaved(boolean saved) {
+        isSaved = saved;
+    }
 }

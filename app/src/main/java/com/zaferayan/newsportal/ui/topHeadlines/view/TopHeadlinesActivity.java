@@ -21,11 +21,9 @@ import com.zaferayan.newsportal.ui.webview.WebViewActivity;
 
 import java.util.List;
 
+import static com.zaferayan.newsportal.config.Constants.*;
+
 public class TopHeadlinesActivity extends AppCompatActivity implements TopHeadlinesContract.View {
-    public final static String EXTRA_SOURCE_ID = "SOURCE_ID";
-    public final static String EXTRA_SOURCE_ID_DEFAULT = "abc-news";
-    public final static String EXTRA_SOURCE_NAME = "SOURCE_NAME";
-    public final static String EXTRA_SOURCE_NAME_DEFAULT = "ABC News";
     private RecyclerView recyclerView;
     private LinearLayoutManager layoutManager;
     private SwipeRefreshLayout swipeRefreshSources;
@@ -78,7 +76,7 @@ public class TopHeadlinesActivity extends AppCompatActivity implements TopHeadli
         switch (id) {
             case R.id.menu_item_saved_articles:
                 Intent intent = new Intent(this, SavedArticlesActivity.class);
-                intent.putExtra(TopHeadlinesActivity.EXTRA_SOURCE_ID, sourceId);
+                intent.putExtra(EXTRA_SOURCE_ID, sourceId);
                 startActivity(intent);
                 return true;
             default:

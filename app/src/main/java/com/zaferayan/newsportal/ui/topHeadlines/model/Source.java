@@ -14,9 +14,13 @@ public class Source {
     public Source() {
     }
 
-    public Source(String mId, String mName) {
+    public Source(String mId) {
         this.mId = mId;
-        this.mName = mName;
+    }
+
+    public Source(String sourceId, String sourceName) {
+        this.mId = sourceId;
+        this.setName(sourceName);
     }
 
     public String getId() {

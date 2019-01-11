@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
+        xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:id="@+id/sources_li"
@@ -15,7 +15,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:contentDescription="@string/content_description_top_headline"
-            android:src="@drawable/bitmap_headline"
+            android:src="@drawable/ic_newspaper"
             android:adjustViewBounds="true"
             android:layout_gravity="center"
     />
@@ -48,7 +48,8 @@
                 android:textColor="@color/sourcesDescription"
                 android:text="@string/headline_li_publishedAt_placeholder"
                 android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"/>
+                android:layout_alignParentRight="true"
+                tools:ignore="RelativeOverlap"/>
 
     </RelativeLayout>
 

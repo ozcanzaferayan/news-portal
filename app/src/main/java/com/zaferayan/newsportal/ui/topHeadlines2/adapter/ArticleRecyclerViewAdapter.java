@@ -1,4 +1,4 @@
-package com.zaferayan.newsportal.ui.savedArticles;
+package com.zaferayan.newsportal.ui.topHeadlines2.adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -13,6 +13,7 @@ import com.squareup.picasso.Callback;
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 import com.zaferayan.newsportal.R;
+import com.zaferayan.newsportal.ui.savedArticles.viewModel.ArticleViewModel;
 import com.zaferayan.newsportal.ui.topHeadlines.listener.ArticleClickListener;
 import com.zaferayan.newsportal.ui.topHeadlines.model.Article;
 
@@ -21,13 +22,15 @@ import java.util.List;
 public class ArticleRecyclerViewAdapter extends RecyclerView.Adapter<ArticleRecyclerViewAdapter.ArticleViewHolder> {
 
     private final LayoutInflater mInflater;
+    private final ArticleViewModel articleViewModel;
     private List<Article> articles; // Create cached copy of Articles
 
-    ArticleRecyclerViewAdapter(Context context) {
+    public ArticleRecyclerViewAdapter(Context context, ArticleViewModel articleViewModel) {
         mInflater = LayoutInflater.from(context);
+        this.articleViewModel = articleViewModel;
     }
 
-    void setArticles(List<Article> list) {
+    public void setArticles(List<Article> list) {
         articles = list;
         notifyDataSetChanged();
     }
@@ -37,12 +40,25 @@ public class ArticleRecyclerViewAdapter extends RecyclerView.Adapter<ArticleRecy
         final Article article = articles.get(position);
         final Context context = holder.layout.getContext();
         final String url = article.getUrlToImage();
+        final boolean isSaved = article.isSaved();
         loadImage(holder, context, url);
         holder.txtTitle.setText(article.getTitle());
-        // sourcesViewHolder.txtAction.setText(article.getTitle()); // TODO: Check from SQLITE
+        holder.txtAction.setText(getActionText(context, isSaved));
         holder.txtPublishedAt.setText(article.getPublishedAt());
         holder.layout.setOnClickListener(new ArticleClickListener(article.getUrl()));
+        holder.layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                articleViewModel.navigateToWebView(article);
+            }
+        });
+        holder.txtAction.setOnClickListener(articleViewModel.saveArticle(article, isSaved));
 
+    }
+
+    private String getActionText(Context context, boolean isStored) {
+        int resId = isStored ? R.string.headline_li_remove_from_reading_list : R.string.headline_li_add_to_reading_list;
+        return context.getString(resId);
     }
 
     @NonNull
@@ -60,8 +76,18 @@ public class ArticleRecyclerViewAdapter extends RecyclerView.Adapter<ArticleRecy
     }
 
     private void loadImage(@NonNull final ArticleRecyclerViewAdapter.ArticleViewHolder holder, final Context context, final String url) {
-        Picasso.with(context)
-                .load(url)
+        if (url == null || url.isEmpty()) {
+            holder.image.setImageResource(R.drawable.ic_newspaper);
+            return;
+        }
+        loadImageOnline(holder, context, url);
+    }
+
+    private void loadImageOnline(@NonNull final ArticleViewHolder holder, final Context context, final String url) {
+        Picasso picasso = Picasso.with(context);
+        picasso.setLoggingEnabled(true);
+        picasso.load(url)
+                .error(R.drawable.ic_newspaper)
                 .networkPolicy(NetworkPolicy.OFFLINE)
                 .into(holder.image, new Callback() {
                     @Override
@@ -72,21 +98,26 @@ public class ArticleRecyclerViewAdapter extends RecyclerView.Adapter<ArticleRecy
 
                     @Override
                     public void onError() {
-                        Picasso.with(context)
-                                .load(url)
-                                .error(R.drawable.bitmap_headline)
-                                .into(holder.image, new Callback() {
-                                    @Override
-                                    public void onSuccess() {
-                                        Log.i("SUCCESS", "Image retrieved ONLINE");
-                                    }
+                        loadImageOnline(context, url, holder);
+                    }
+                });
+    }
 
-                                    @Override
-                                    public void onError() {
-                                        Log.e("ERROR", "Could not fetch " + url);
-                                        Picasso.with(context).load(R.drawable.bitmap_headline).into(holder.image);
-                                    }
-                                });
+    private void loadImageOnline(final Context context, final String url, @NonNull final ArticleViewHolder holder) {
+        Picasso picasso = Picasso.with(context);
+        picasso.setLoggingEnabled(true);
+        picasso.load(url)
+                .error(R.drawable.ic_newspaper)
+                .into(holder.image, new Callback() {
+                    @Override
+                    public void onSuccess() {
+                        Log.i("SUCCESS", "Image retrieved ONLINE");
+                    }
+
+                    @Override
+                    public void onError() {
+                        Log.e("ERROR", "Could not fetch " + url);
+                        Picasso.with(context).load(R.drawable.ic_newspaper).into(holder.image);
                     }
                 });
     }

@@ -16,7 +16,7 @@ import java.io.File;
 
 public class DependencyInjectorImpl implements DependencyInjector {
 
-    private final Application application;
+    public final Application application;
 
     public DependencyInjectorImpl(Application application) {
         this.application = application;

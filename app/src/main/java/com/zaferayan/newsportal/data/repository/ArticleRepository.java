@@ -31,13 +31,37 @@ public class ArticleRepository {
     }
 
 
-    public void insert(Article Article) {
-        new insertAsyncTask(mArticleDao).execute(Article);
+    public void insert(Article article) {
+        new insertAsyncTask(mArticleDao).execute(article);
     }
 
-    public void delete(Article Article) {
-        new deleteAsyncTask(mArticleDao).execute(Article);
+
+    public void insertAll(List<Article> articles) {
+        new insertAllAsyncTask(mArticleDao).execute(articles);
     }
+
+    public void delete(Article article) {
+        new deleteAsyncTask(mArticleDao).execute(article);
+    }
+
+
+    public void addToSaved(Article article) {
+        new updateAsyncTask(mArticleDao).execute(new UpdateWillSaveArticleParams(article, true));
+    }
+
+
+    public void removeFromSaved(Article article) {
+        new updateAsyncTask(mArticleDao).execute(new UpdateWillSaveArticleParams(article, false));
+    }
+
+    public LiveData<List<Article>> getArticlesBySource(String sourceId) {
+        return mArticleDao.getAllArticlesBySource(sourceId);
+    }
+
+    public LiveData<List<Article>> getSavedArticles(String sourceId) {
+        return mArticleDao.getSavedArticles(sourceId);
+    }
+
 
     private static class insertAsyncTask extends AsyncTask<Article, Void, Void> {
 
@@ -65,6 +89,46 @@ public class ArticleRepository {
         @Override
         protected Void doInBackground(final Article... params) {
             mAsyncTaskDao.delete(params[0]);
+            return null;
+        }
+    }
+
+    private static class UpdateWillSaveArticleParams {
+        Article article;
+        boolean willSaving;
+
+        UpdateWillSaveArticleParams(Article article, boolean willSaving) {
+            this.article = article;
+            this.willSaving = willSaving;
+        }
+    }
+
+    private static class updateAsyncTask extends AsyncTask<UpdateWillSaveArticleParams, Void, Void> {
+
+        private ArticleDao mAsyncTaskDao;
+
+        updateAsyncTask(ArticleDao dao) {
+            mAsyncTaskDao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(UpdateWillSaveArticleParams... params) {
+            mAsyncTaskDao.update(params[0].article.getUrl(), params[0].willSaving);
+            return null;
+        }
+    }
+
+    private static class insertAllAsyncTask extends AsyncTask<List<Article>, Void, Void> {
+        private ArticleDao mAsyncTaskDao;
+
+        insertAllAsyncTask(ArticleDao mArticleDao) {
+            mAsyncTaskDao = mArticleDao;
+        }
+
+        @SafeVarargs
+        @Override
+        protected final Void doInBackground(List<Article>... params) {
+            mAsyncTaskDao.insertAll(params[0]);
             return null;
         }
     }
